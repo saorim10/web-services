@@ -1,6 +1,8 @@
 package com.saorim.web_services.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,4 +29,11 @@ public class Category implements Serializable {
 	private Integer id;
 	
 	private String nome;
+	
+	private Set<Product> produtos = new HashSet<Product>();
+	
+	public Category(Integer id, String nome) {
+		this.id = id;
+		this.nome= nome;
+	}
 }
