@@ -3,6 +3,7 @@ package com.saorim.web_services.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.saorim.web_services.entity.pk.OrderItemPK;
 
 import jakarta.persistence.EmbeddedId;
@@ -15,53 +16,54 @@ public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 6734260812347005674L;
 
 	@EmbeddedId
-	private OrderItemPK id;
+	private OrderItemPK id = new OrderItemPK();
 	
-	private Integer quantidade;
-	private Double preco;
+	private Integer quantity;
+	private Double price;
 	
 	
 	public OrderItem() {
 		// empty
 	}
 	
-	public OrderItem(Order pedido, Product produto, Integer quantidade, Double preco) {
-		this.id.setPedido(pedido);
-		this.id.setProduto(produto);
-		this.quantidade = quantidade;
-		this.preco = preco;
+	public OrderItem(Order order, Product product, Integer quantity, Double price) {
+		this.id.setOrder(order);
+		this.id.setProduct(product);
+		this.quantity = quantity;
+		this.price = price;
 	}
 	
-	public Order getPedido() {
-		return id.getPedido();
+	@JsonIgnore
+	public Order getOrder() {
+		return id.getOrder();
 	}
 	
-	public void setPedido(Order pedido) {
-		id.setPedido(pedido);
+	public void setOrder(Order order) {
+		id.setOrder(order);
 	}
 	
-	public Product getProduto() {
-		return id.getProduto();
+	public Product getProduct() {
+		return id.getProduct();
 	}
 	
-	public void setProduto(Product produto) {
-		id.setProduto(produto);
+	public void setProduct(Product product) {
+		id.setProduct(product);
 	}
 
-	public Integer getQuantidade() {
-		return quantidade;
+	public Integer getQuantity() {
+		return quantity;
 	}
 
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
-	public Double getPreco() {
-		return preco;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setPreco(Double preco) {
-		this.preco = preco;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
 	

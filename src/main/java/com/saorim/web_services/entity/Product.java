@@ -21,9 +21,9 @@ public class Product implements Serializable {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
-	private String descricao;
-	private Double preco;
+	private String name;
+	private String description;
+	private Double price;
 	private String imgUrl;
 	
 	@ManyToMany
@@ -32,19 +32,19 @@ public class Product implements Serializable {
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-	private Set<Category> categorias = new HashSet<Category>();
+	private Set<Category> categories = new HashSet<Category>();
 
 	
 	public Product() {
 		// empty
 	}
 	
-	public Product(Integer id, String nome, String descricao, Double preco, String imgUrl) {
+	public Product(Integer id, String name, String description, Double price, String imgUrl) {
 		
 		this.id = id;
-		this.nome = nome;
-		this.descricao = descricao;
-		this.preco = preco;
+		this.name = name;
+		this.description = description;
+		this.price = price;
 		this.imgUrl = imgUrl;
 	}
 
@@ -56,28 +56,28 @@ public class Product implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public Double getPreco() {
-		return preco;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setPreco(Double preco) {
-		this.preco = preco;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
 	public String getImgUrl() {
@@ -88,8 +88,8 @@ public class Product implements Serializable {
 		this.imgUrl = imgUrl;
 	}
 
-	public Set<Category> getCategorias() {
-		return categorias;
+	public Set<Category> getCategories() {
+		return categories;
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class Product implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", preco=" + preco + ", imgUrl="
+		return "Product [id=" + id + ", nome=" + name + ", descricao=" + description + ", preco=" + price + ", imgUrl="
 				+ imgUrl + "]";
 	}
 	

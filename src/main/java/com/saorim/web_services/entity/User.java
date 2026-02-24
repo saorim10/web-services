@@ -26,22 +26,22 @@ public class User implements Serializable {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
+	private String name;
 	private String email;
-	private String telefone;
-	private String senha;
+	private String phone;
+	private String password;
 	
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "client")
 	@JsonIgnore
-	private List<Order> pedidos = new ArrayList<Order>();
+	private List<Order> orders = new ArrayList<Order>();
 
-	public User(Integer id, String nome, String email, String telefone, String senha) {
+	public User(Integer id, String name, String email, String phone, String password) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.name = name;
 		this.email = email;
-		this.telefone = telefone;
-		this.senha = senha;
+		this.phone = phone;
+		this.password = password;
 	}
 	
 	public User() {

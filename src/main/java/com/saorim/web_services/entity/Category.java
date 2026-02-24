@@ -31,15 +31,15 @@ public class Category implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String nome;
+	private String name;
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy = "categorias")
-	private Set<Product> produtos = new HashSet<Product>();
+	@ManyToMany(mappedBy = "categories")
+	private Set<Product> products = new HashSet<Product>();
 	
-	public Category(Integer id, String nome) {
+	public Category(Integer id, String name) {
 		this.id = id;
-		this.nome= nome;
+		this.name= name;
 	}
 	
 }

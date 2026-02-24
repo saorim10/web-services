@@ -2,6 +2,8 @@ package com.saorim.web_services.entity;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.saorim.web_services.entity.enums.OrderStatus;
@@ -12,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 
@@ -25,23 +28,26 @@ public class Order implements Serializable {
 	private Integer id;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant momento;
+	private Instant moment;
 	
 	private Integer status;
 	
 	@ManyToOne
-	@JoinColumn(name = "cliente_id")
-	private User cliente;
+	@JoinColumn(name = "client_id")
+	private User client;
+	
+	@OneToMany(mappedBy = "id.order")
+	private Set<OrderItem> items = new HashSet<OrderItem>();
 	
 	public Order() {
 		// empty	
 	}
 	
-	public Order(Integer id, Instant momento, OrderStatus status, User cliente ) {
+	public Order(Integer id, Instant moment, OrderStatus status, User client ) {
 		this.id = id;
-		this.momento = momento;
+		this.moment = moment;
 		setStatus(status);
-		this.cliente = cliente;
+		this.client = client;
 	}
 
 	public Integer getId() {
@@ -52,12 +58,12 @@ public class Order implements Serializable {
 		this.id = id;
 	}
 
-	public Instant getMomento() {
-		return momento;
+	public Instant getMoment() {
+		return moment;
 	}
 
-	public void setMomento(Instant momento) {
-		this.momento = momento;
+	public void setMoment(Instant moment) {
+		this.moment = moment;
 	}
 
 	public OrderStatus getStatus() {
@@ -70,14 +76,16 @@ public class Order implements Serializable {
 		}
 	}
 
-	public User getCliente() {
-		return cliente;
+	public User getClient() {
+		return client;
 	}
 
-	public void setCliente(User cliente) {
-		this.cliente = cliente;
+	public void setClient(User client) {
+		this.client = client;
 	}
 	
-	
+	public Set<OrderItem> getItems() {
+		return items;
+	}
 	
 }
