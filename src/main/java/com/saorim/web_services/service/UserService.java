@@ -16,6 +16,10 @@ public class UserService {
 
 	private final UserRepository repository;
 	
+	public User create(User obj) {
+		return repository.save(obj);
+	}
+	
 	public List<User> findAll() {
 		return repository.findAll();
 	}
