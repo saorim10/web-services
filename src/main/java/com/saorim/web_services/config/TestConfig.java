@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 import com.saorim.web_services.entity.Category;
 import com.saorim.web_services.entity.Order;
 import com.saorim.web_services.entity.OrderItem;
+import com.saorim.web_services.entity.Payment;
 import com.saorim.web_services.entity.Product;
 import com.saorim.web_services.entity.User;
 import com.saorim.web_services.entity.enums.OrderStatus;
@@ -38,7 +39,7 @@ public class TestConfig implements CommandLineRunner {
 		User u2 = new User(null, "Melissa", "mel@email.com", "2222-2222", "234");
 		User u3 = new User(null, "Sophie", "so@email.com", "3333-3333", "345");
 		
-		Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.AGUARDANDO_PAGAMENTO, u1);
+		Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.PAGO, u1);
 		Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.AGUARDANDO_PAGAMENTO, u2);
 		Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.ENVIADO ,u1);
 		
@@ -72,6 +73,10 @@ public class TestConfig implements CommandLineRunner {
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1);
+		orderRepository.save(o1);
 	}
 	
 
