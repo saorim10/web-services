@@ -3,10 +3,12 @@ package com.saorim.web_services.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.saorim.web_services.entity.User;
 import com.saorim.web_services.repository.UserRepository;
+import com.saorim.web_services.service.exception.DatabaseException;
 import com.saorim.web_services.service.exception.ResourceNotFoundException;
 
 import lombok.RequiredArgsConstructor;
@@ -39,6 +41,13 @@ public class UserService {
 	}
 	
 	public void delete(int id) {
-		repository.deleteById(id);
+		if (!repository.existsById(id)) {
+	        throw new ResourceNotFoundException(id);
+	    }
+		try {
+			repository.deleteById(id);
+		} catch(DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 }
