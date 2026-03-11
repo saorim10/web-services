@@ -28,4 +28,8 @@ public class UserService {
 		Optional<User> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	public void delete(int id) {
+		repository.deleteById(id);
+	}
 }
