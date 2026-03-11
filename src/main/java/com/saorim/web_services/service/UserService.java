@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.saorim.web_services.entity.User;
 import com.saorim.web_services.repository.UserRepository;
+import com.saorim.web_services.service.exception.ResourceNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,7 +27,7 @@ public class UserService {
 	
 	public User findById(int id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public User update(int id, User user) {
