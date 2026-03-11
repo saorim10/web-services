@@ -11,7 +11,7 @@ import com.saorim.web_services.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Service
+@Service	
 public class UserService {
 
 	private final UserRepository repository;
@@ -27,6 +27,14 @@ public class UserService {
 	public User findById(int id) {
 		Optional<User> obj = repository.findById(id);
 		return obj.get();
+	}
+	
+	public User update(int id, User user) {
+		User obj = repository.getReferenceById(id);
+		obj.setName(user.getName());
+		obj.setEmail(user.getEmail());
+		obj.setPhone(user.getPhone());
+		return repository.save(obj);
 	}
 	
 	public void delete(int id) {
