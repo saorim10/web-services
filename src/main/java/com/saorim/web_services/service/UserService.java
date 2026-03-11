@@ -11,6 +11,7 @@ import com.saorim.web_services.repository.UserRepository;
 import com.saorim.web_services.service.exception.DatabaseException;
 import com.saorim.web_services.service.exception.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -33,11 +34,15 @@ public class UserService {
 	}
 	
 	public User update(int id, User user) {
-		User obj = repository.getReferenceById(id);
-		obj.setName(user.getName());
-		obj.setEmail(user.getEmail());
-		obj.setPhone(user.getPhone());
-		return repository.save(obj);
+		try {
+			User obj = repository.getReferenceById(id);
+			obj.setName(user.getName());
+			obj.setEmail(user.getEmail());
+			obj.setPhone(user.getPhone());
+			return repository.save(obj);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 	
 	public void delete(int id) {
